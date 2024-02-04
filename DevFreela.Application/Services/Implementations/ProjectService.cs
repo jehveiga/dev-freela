@@ -27,6 +27,9 @@ namespace DevFreela.Application.Services.Implementations
         {
             var project = _dbContext.Projects.Find(x => x.Id == id);
 
+            if (project == null)
+                return null;
+
             var projectDetailsViewModel = new ProjectDetailsViewModel(
                 id: project.Id,
                 title: project.Title,

@@ -1,6 +1,6 @@
-﻿using DevFreela.API.Models;
+﻿using DevFreela.Application.InputModels;
+using DevFreela.Application.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
 
 namespace DevFreela.API.Controllers
 {
@@ -8,90 +8,97 @@ namespace DevFreela.API.Controllers
     [ApiController]
     public class ProjectsController : ControllerBase
     {
-        private readonly IOptions<OpeningTimeOption> _option;
+        private readonly IProjectService _projectService;
 
-        public ProjectsController(IOptions<OpeningTimeOption> option)
+        public ProjectsController(IProjectService projectService)
         {
-            _option = option;
+            _projectService = projectService;
         }
 
 
-        // api/projects?query=net core
+        // ex: api/projects?query=net core
         [HttpGet]
-        public IActionResult Get(string query)
+        public IActionResult Get([FromQuery] string query)
         {
-            // Buscar todos ou filtrar
+            var projects = _projectService.GetAll(query);
 
-            return Ok();
+            return Ok(projects);
         }
 
-        // api/projects/3
+        // ex: api/projects/3
         [HttpGet("{id:int}")]
         public IActionResult GetById([FromRoute] int id)
         {
-            // Buscar o projeto
+            var project = _projectService.GetById(id);
 
-            // return NotFound();
-            return Ok();
+            if (project == null)
+                return NotFound();
+
+            return Ok(project);
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] CreateProjectModel createProject)
+        public IActionResult Post([FromBody] CreateProjectInputModel inputModel)
         {
-            if (createProject.Title.Length > 50)
+            if (inputModel.Title.Length > 50)
             {
                 return BadRequest();
             }
 
-            // Cadastrar o projeto
+            var idProject = _projectService.Create(inputModel);
 
-            return CreatedAtAction(nameof(GetById), new { id = createProject.Id }, createProject);
+            return CreatedAtAction(nameof(GetById), new { id = idProject }, inputModel);
         }
 
-        // api/projects/2
+        // ex: api/projects/2
         [HttpPut("{id:int}")]
         public IActionResult Put([FromRoute] int id,
-                                 [FromBody] UpdateProjectModel updateProject)
+                                 [FromBody] UpdateProjectInputModel inputModel)
         {
-            if (updateProject.Description.Length > 200)
+            if (inputModel.Description.Length > 200)
             {
                 return BadRequest();
             }
 
-            // Atualizo o projeto
+            _projectService.Update(inputModel);
+
             return NoContent();
         }
 
-        // api/projects/3
+        // ex: api/projects/3
         [HttpDelete("{id:int}")]
         public IActionResult Delete([FromRoute] int id)
         {
-            // Buscar, se não existir retorna NotFound
-
-            // Remover
+            _projectService.Delete(id);
 
             return NoContent();
         }
 
-        // api/projects/2/comments
+        // ex: api/projects/2/comments
         [HttpPost("{id:int}/comments")]
         public IActionResult PostComment([FromRoute] int id,
-                                         [FromBody] CreateCommentModel createComment)
+                                         [FromBody] CreateCommentInputModel inputModel)
         {
+            _projectService.CreateComment(inputModel);
+
             return NoContent();
         }
 
-        // api/projects/1/start
+        // ex: api/projects/1/start
         [HttpPut("{id:int}/start")]
         public IActionResult Start([FromRoute] int id)
         {
+            _projectService.Start(id);
+
             return NoContent();
         }
 
-        // api/projects/1/finish
+        // ex: api/projects/1/finish
         [HttpPut("{id:int}/finish")]
         public IActionResult Finish([FromRoute] int id)
         {
+            _projectService.Finish(id);
+
             return NoContent();
         }
     }
