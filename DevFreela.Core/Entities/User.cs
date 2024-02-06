@@ -24,5 +24,6 @@
         public IList<UserSkill> Skills { get; private set; }
         public IList<Project> OwnedProjects { get; private set; }
         public IList<Project> FreelanceProjects { get; set; }
+        public IList<ProjectComment> Comments { get; private set; }
     }
 }
