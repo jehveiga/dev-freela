@@ -18,14 +18,14 @@ namespace DevFreela.Application.Services.Implementations
         {
             var projects = _dbContext.Projects;
 
-            var projectsViewModel = projects.Select(p => new ProjectViewModel(id: p.Id, title: p.Title, createdAt: p.CreatedAt)).ToList();
+            var projectsViewModel = projects.Select(p => new ProjectViewModel(p.Id, p.Title, p.CreatedAt)).ToList();
 
             return projectsViewModel;
         }
 
         public ProjectDetailsViewModel GetById(int id)
         {
-            var project = _dbContext.Projects.Find(x => x.Id == id);
+            var project = _dbContext.Projects.SingleOrDefault(x => x.Id == id);
 
             if (project == null)
                 return null;
@@ -65,28 +65,28 @@ namespace DevFreela.Application.Services.Implementations
 
         public void Update(UpdateProjectInputModel inputModel)
         {
-            var project = _dbContext.Projects.Find(x => x.Id == inputModel.Id);
+            var project = _dbContext.Projects.SingleOrDefault(x => x.Id == inputModel.Id);
 
             project.Update(project.Title, project.Description, project.TotalCost);
         }
 
         public void Delete(int id)
         {
-            var project = _dbContext.Projects.Find(x => x.Id == id);
+            var project = _dbContext.Projects.SingleOrDefault(x => x.Id == id);
 
             project.Cancel();
         }
 
         public void Start(int id)
         {
-            var project = _dbContext.Projects.Find(x => x.Id == id);
+            var project = _dbContext.Projects.SingleOrDefault(x => x.Id == id);
 
             project.Start();
         }
 
         public void Finish(int id)
         {
-            var project = _dbContext.Projects.Find(x => x.Id == id);
+            var project = _dbContext.Projects.SingleOrDefault(x => x.Id == id);
 
             project.Finish();
         }

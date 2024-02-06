@@ -26,8 +26,7 @@ namespace DevFreela.Application.Services.Implementations
 
         public UserViewModel GetUser(int id)
         {
-            var user = _dbContext.Users.Find(x => x.Id == id);
-
+            var user = _dbContext.Users.SingleOrDefault(x => x.Id == id);
             if (user == null)
             {
                 return null;
