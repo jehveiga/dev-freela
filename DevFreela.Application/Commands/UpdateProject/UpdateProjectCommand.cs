@@ -1,13 +1,12 @@
 ﻿using MediatR;
 
-namespace DevFreela.Application.Commands.CreateProject
+namespace DevFreela.Application.Commands.UpdateProject
 {
-    public class CreateProjectCommand : IRequest<int>
+    public class UpdateProjectCommand : IRequest<Unit>
     {
+        public int Id { get; set; }
         public string Title { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
-        public int IdClient { get; set; }
-        public int IdFreelancer { get; set; }
         public decimal? TotalCost { get; set; }
     }
 }
