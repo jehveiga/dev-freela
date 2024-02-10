@@ -4,7 +4,8 @@ using DevFreela.Application.Commands.DeleteProject;
 using DevFreela.Application.Commands.FinishProject;
 using DevFreela.Application.Commands.StartProject;
 using DevFreela.Application.Commands.UpdateProject;
-using DevFreela.Application.Services.Interfaces;
+using DevFreela.Application.Queries.GetAllProjects;
+using DevFreela.Application.Queries.GetProjectById;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,30 +15,30 @@ namespace DevFreela.API.Controllers
     [ApiController]
     public class ProjectsController : ControllerBase
     {
-        private readonly IProjectService _projectService;
         private readonly IMediator _mediator;
 
-        public ProjectsController(IProjectService projectService, IMediator mediator)
+        public ProjectsController(IMediator mediator)
         {
-            _projectService = projectService;
             _mediator = mediator;
         }
 
 
         // ex: api/projects?query=net core
         [HttpGet]
-        public IActionResult Get([FromQuery] string query)
+        public async Task<IActionResult> GetAsync([FromQuery] string query)
         {
-            var projects = _projectService.GetAll(query);
+            var getAllProjectsQuery = new GetAllProjectsQuery(query);
+            var projects = await _mediator.Send(getAllProjectsQuery);
 
             return Ok(projects);
         }
 
         // ex: api/projects/3
         [HttpGet("{id:int}")]
-        public IActionResult GetById([FromRoute] int id)
+        public async Task<IActionResult> GetByIdAsync([FromRoute] int id)
         {
-            var project = _projectService.GetById(id);
+            var query = new GetProjectByIdQuery(id);
+            var project = await _mediator.Send(query);
 
             if (project == null)
                 return NotFound();
@@ -56,7 +57,7 @@ namespace DevFreela.API.Controllers
             //var idProject = _projectService.Create(inputModel);
             var idProject = await _mediator.Send(command);
 
-            return CreatedAtAction(nameof(GetById), new { id = idProject }, command);
+            return CreatedAtAction(nameof(GetByIdAsync), new { id = idProject }, command);
         }
 
         // ex: api/projects/2
