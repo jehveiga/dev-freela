@@ -19,12 +19,42 @@ namespace DevFreela.Infrastructure.Persistence.Repositories
 
         public async Task<Project> GetByIdAsync(int id)
         {
-            var project = await _dbContext.Projects
-            .Include(p => p.Cliente)
-            .Include(p => p.Freelancer)
-            .SingleOrDefaultAsync(p => p.Id == id);
+            return await _dbContext.Projects.SingleOrDefaultAsync(p => p.Id == id);
+        }
 
-            return project;
+        public async Task<Project> GetDetailsByIdAsync(int id)
+        {
+            return await _dbContext.Projects
+                .Include(p => p.Client)
+                .Include(p => p.Freelancer)
+                .SingleOrDefaultAsync(p => p.Id == id);
+        }
+
+        public async Task AddAsync(Project project)
+        {
+            await _dbContext.Projects.AddAsync(project);
+            await SaveChangesAsync();
+        }
+
+        public async Task AddCommentAsync(ProjectComment projectComment)
+        {
+            await _dbContext.ProjectComments.AddAsync(projectComment);
+            await SaveChangesAsync();
+        }
+
+        public async Task StartAsync(Project project)
+        {
+            await SaveChangesAsync();
+        }
+
+        public async Task FinishAsync(Project project)
+        {
+            await SaveChangesAsync();
+        }
+
+        public async Task SaveChangesAsync()
+        {
+            await _dbContext.SaveChangesAsync();
         }
     }
 }

@@ -4,7 +4,7 @@ using MediatR;
 
 namespace DevFreela.Application.Queries.GetAllSkills
 {
-    public class GetAllSkillsQueryHandler : IRequestHandler<GetAllSkillsQuery, List<SkillDTO>>
+    public class GetAllSkillsQueryHandler : IRequestHandler<GetAllSkillsQuery, List<SkillDto>>
     {
         private readonly ISkillRepository _skillRepository;
 
@@ -13,7 +13,7 @@ namespace DevFreela.Application.Queries.GetAllSkills
             _skillRepository = skillRepository;
         }
 
-        public async Task<List<SkillDTO>> Handle(GetAllSkillsQuery request, CancellationToken cancellationToken)
+        public async Task<List<SkillDto>> Handle(GetAllSkillsQuery request, CancellationToken cancellationToken)
         {
             return await _skillRepository.GetAllAsync();
         }
