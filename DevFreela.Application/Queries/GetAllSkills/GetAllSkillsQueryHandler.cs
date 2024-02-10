@@ -1,27 +1,21 @@
-﻿using DevFreela.Application.ViewModels;
-using DevFreela.Infrastructure.Persistence;
+﻿using DevFreela.Core.DTOs;
+using DevFreela.Core.Repositories;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace DevFreela.Application.Queries.GetAllSkills
 {
-    public class GetAllSkillsQueryHandler : IRequestHandler<GetAllSkillsQuery, List<SkillViewModel>>
+    public class GetAllSkillsQueryHandler : IRequestHandler<GetAllSkillsQuery, List<SkillDTO>>
     {
-        private readonly DevFreelaDbContext _dbContext;
+        private readonly ISkillRepository _skillRepository;
 
-        public GetAllSkillsQueryHandler(DevFreelaDbContext dbContext)
+        public GetAllSkillsQueryHandler(ISkillRepository skillRepository)
         {
-            _dbContext = dbContext;
+            _skillRepository = skillRepository;
         }
 
-        public async Task<List<SkillViewModel>> Handle(GetAllSkillsQuery request, CancellationToken cancellationToken)
+        public async Task<List<SkillDTO>> Handle(GetAllSkillsQuery request, CancellationToken cancellationToken)
         {
-            var skills = _dbContext.Skills;
-
-            var skillViewModel = await skills.Select(skill => new SkillViewModel(skill.Id, skill.Description))
-                                       .ToListAsync();
-
-            return skillViewModel;
+            return await _skillRepository.GetAllAsync();
         }
     }
 }
