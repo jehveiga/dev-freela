@@ -15,6 +15,7 @@ namespace DevFreela.Application.Validators
                                           .WithMessage("Senha deve conter pelo menos 8 caracteres, um número, uma letra maiúscula, uma minúscula e um caractere especial");
 
             RuleFor(user => user.FullName).NotEmpty()
+                                          .WithMessage("Nome não pode ser vazio!")
                                           .NotNull()
                                           .WithMessage("Nome é obrigatório!");
         }

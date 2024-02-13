@@ -13,6 +13,7 @@ namespace DevFreela.Application.Validators
 
             RuleFor(project => project.Description)
                 .NotNull()
+                .WithMessage("Descrição não poder ser vazio!")
                 .NotEmpty()
                 .WithMessage("Descrição é obrigatória!");
 
@@ -22,8 +23,9 @@ namespace DevFreela.Application.Validators
 
             RuleFor(project => project.Title)
                 .NotNull()
+                .WithMessage("Título é obrigatório!")
                 .NotEmpty()
-                .WithMessage("Título é obrigatório!");
+                .WithMessage("Título não poder ser vazio!");
         }
     }
 }

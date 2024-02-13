@@ -1,3 +1,4 @@
+using DevFreela.API.Filters;
 using DevFreela.Application.Commands.CreateProject;
 using DevFreela.Application.Validators;
 using DevFreela.Core.Repositories;
@@ -18,7 +19,8 @@ builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
 builder.Services.AddScoped<ISkillRepository, SkillRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 
-builder.Services.AddControllers();
+// Adicionar o serviço de Filter para validação no Pipeline da requisição usando o options do serviço da AddControllers
+builder.Services.AddControllers(options => options.Filters.Add(typeof(ValidationFilter)));
 
 // Fluent Validation, adicionará todas dependecias de serviço pela classe obtendo o Assembly da classe informada no parametro
 builder.Services.AddFluentValidationAutoValidation().AddValidatorsFromAssemblyContaining<CreateUserCommandValidator>();

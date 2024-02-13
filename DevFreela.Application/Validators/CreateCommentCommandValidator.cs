@@ -13,6 +13,7 @@ namespace DevFreela.Application.Validators
 
             RuleFor(comment => comment.Content)
                 .NotNull()
+                .WithMessage("Comentário não poder ser vazio!")
                 .NotEmpty()
                 .WithMessage("Conteúdo do comentário é obrigatório!");
         }

@@ -49,15 +49,6 @@ namespace DevFreela.API.Controllers
         [HttpPost]
         public async Task<IActionResult> PostAsync([FromBody] CreateProjectCommand command)
         {
-            if (!ModelState.IsValid)
-            {
-                var messages = ModelState.SelectMany(ms => ms.Value.Errors)
-                                         .Select(e => e.ErrorMessage)
-                                         .ToList();
-
-                return BadRequest(messages);
-            }
-
             var idProject = await _mediator.Send(command);
 
             return CreatedAtAction(nameof(GetByIdAsync), new { id = idProject }, command);
@@ -68,15 +59,6 @@ namespace DevFreela.API.Controllers
         public async Task<IActionResult> PutAsync([FromRoute] int id,
                                  [FromBody] UpdateProjectCommand command)
         {
-            if (!ModelState.IsValid)
-            {
-                var messages = ModelState.SelectMany(ms => ms.Value.Errors)
-                                         .Select(e => e.ErrorMessage)
-                                         .ToList();
-
-                return BadRequest(messages);
-            }
-
             await _mediator.Send(command);
 
             return NoContent();
@@ -98,15 +80,6 @@ namespace DevFreela.API.Controllers
         public async Task<IActionResult> PostCommentAsync([FromRoute] int id,
                                          [FromBody] CreateCommentCommand command)
         {
-            if (!ModelState.IsValid)
-            {
-                var messages = ModelState.SelectMany(ms => ms.Value.Errors)
-                                         .Select(e => e.ErrorMessage)
-                                         .ToList();
-
-                return BadRequest(messages);
-            }
-
             await _mediator.Send(command);
 
             return NoContent();
