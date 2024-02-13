@@ -68,9 +68,13 @@ namespace DevFreela.API.Controllers
         public async Task<IActionResult> PutAsync([FromRoute] int id,
                                  [FromBody] UpdateProjectCommand command)
         {
-            if (command.Description.Length > 200)
+            if (!ModelState.IsValid)
             {
-                return BadRequest();
+                var messages = ModelState.SelectMany(ms => ms.Value.Errors)
+                                         .Select(e => e.ErrorMessage)
+                                         .ToList();
+
+                return BadRequest(messages);
             }
 
             await _mediator.Send(command);
@@ -94,6 +98,15 @@ namespace DevFreela.API.Controllers
         public async Task<IActionResult> PostCommentAsync([FromRoute] int id,
                                          [FromBody] CreateCommentCommand command)
         {
+            if (!ModelState.IsValid)
+            {
+                var messages = ModelState.SelectMany(ms => ms.Value.Errors)
+                                         .Select(e => e.ErrorMessage)
+                                         .ToList();
+
+                return BadRequest(messages);
+            }
+
             await _mediator.Send(command);
 
             return NoContent();
