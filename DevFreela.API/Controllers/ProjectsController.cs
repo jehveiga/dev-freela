@@ -49,12 +49,15 @@ namespace DevFreela.API.Controllers
         [HttpPost]
         public async Task<IActionResult> PostAsync([FromBody] CreateProjectCommand command)
         {
-            if (command.Title.Length > 50)
+            if (!ModelState.IsValid)
             {
-                return BadRequest();
+                var messages = ModelState.SelectMany(ms => ms.Value.Errors)
+                                         .Select(e => e.ErrorMessage)
+                                         .ToList();
+
+                return BadRequest(messages);
             }
 
-            //var idProject = _projectService.Create(inputModel);
             var idProject = await _mediator.Send(command);
 
             return CreatedAtAction(nameof(GetByIdAsync), new { id = idProject }, command);
