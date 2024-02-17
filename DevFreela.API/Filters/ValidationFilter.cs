@@ -9,7 +9,7 @@ namespace DevFreela.API.Filters
         {
             if (!context.ModelState.IsValid)
             {
-                var messages = context.ModelState.SelectMany(ms => ms.Value.Errors)
+                List<string> messages = context.ModelState.SelectMany(ms => ms.Value.Errors)
                          .Select(e => e.ErrorMessage)
                          .ToList();
 

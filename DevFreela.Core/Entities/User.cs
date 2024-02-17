@@ -1,29 +1,18 @@
 ﻿namespace DevFreela.Core.Entities
 {
-    public class User : BaseEntity
+    public class User(string fullName, string email, DateTime birthDate, string password, string role) : BaseEntity
     {
-        public User(string fullName, string email, DateTime birthDate)
-        {
-            FullName = fullName;
-            Email = email;
-            BirthDate = birthDate;
-            CreatedAt = DateTime.Now;
-            Active = true;
+        public string FullName { get; private set; } = fullName;
+        public string Email { get; private set; } = email;
+        public DateTime BirthDate { get; private set; } = birthDate;
+        public DateTime CreatedAt { get; private set; } = DateTime.Now;
+        public bool Active { get; set; } = true;
+        public string Password { get; private set; } = password;
+        public string Role { get; private set; } = role;
 
-            Skills = new List<UserSkill>();
-            OwnedProjects = new List<Project>();
-            FreelanceProjects = new List<Project>();
-        }
-
-        public string FullName { get; private set; }
-        public string Email { get; private set; }
-        public DateTime BirthDate { get; private set; }
-        public DateTime CreatedAt { get; private set; }
-        public bool Active { get; set; }
-
-        public IList<UserSkill> Skills { get; private set; }
-        public IList<Project> OwnedProjects { get; private set; }
-        public IList<Project> FreelanceProjects { get; set; }
-        public IList<ProjectComment> Comments { get; private set; }
+        public IList<UserSkill> Skills { get; private set; } = new List<UserSkill>();
+        public IList<Project> OwnedProjects { get; private set; } = new List<Project>();
+        public IList<Project> FreelanceProjects { get; set; } = new List<Project>();
+        public IList<ProjectComment> Comments { get; private set; } = new List<ProjectComment>();
     }
 }

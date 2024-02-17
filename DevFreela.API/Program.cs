@@ -2,6 +2,8 @@ using DevFreela.API.Filters;
 using DevFreela.Application.Commands.CreateProject;
 using DevFreela.Application.Validators;
 using DevFreela.Core.Repositories;
+using DevFreela.Core.Services;
+using DevFreela.Infrastructure.Auth;
 using DevFreela.Infrastructure.Persistence;
 using DevFreela.Infrastructure.Persistence.Repositories;
 using FluentValidation;
@@ -18,6 +20,9 @@ builder.Services.AddDbContext<DevFreelaDbContext>(options => options.UseSqlServe
 builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
 builder.Services.AddScoped<ISkillRepository, SkillRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+
+// Adicionando serviço do Jwt na aplicação
+builder.Services.AddScoped<IAuthService, AuthService>();
 
 // Adicionar o serviço de Filter para validação no Pipeline da requisição usando o options do serviço da AddControllers
 builder.Services.AddControllers(options => options.Filters.Add(typeof(ValidationFilter)));
