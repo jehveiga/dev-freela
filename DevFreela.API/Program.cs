@@ -9,6 +9,7 @@ using DevFreela.Infrastructure.Persistence.Repositories;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,8 +34,40 @@ builder.Services.AddFluentValidationAutoValidation().AddValidatorsFromAssemblyCo
 // Adicionando o serviço do MediatR no container de serviço do Asp.Net, adicionará todas dependecias de serviço pelo Assembly informado no parametro
 builder.Services.AddMediatR(cfg => { cfg.RegisterServicesFromAssemblies(typeof(CreateProjectCommand).Assembly); });
 
+
+
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+
+// Adicionando as configurações da documentação no Swagger das difinicões de segurança
+builder.Services.AddSwaggerGen(setup =>
+{
+    setup.SwaggerDoc("v1", new OpenApiInfo { Title = "DevFreela.API", Version = "v1" });
+
+    setup.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Name = "Authorization",
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = "Bearer",
+        BearerFormat = "JWT",
+        In = ParameterLocation.Header,
+        Description = "JWT Authorization header usando o esquema Bearer."
+    });
+
+    setup.AddSecurityRequirement(new OpenApiSecurityRequirement
+                 {
+                     {
+                           new OpenApiSecurityScheme
+                             {
+                                 Reference = new OpenApiReference
+                                 {
+                                     Type = ReferenceType.SecurityScheme,
+                                     Id = "Bearer"
+                                 }
+                             },
+                             new string[] {}
+                     }
+                 });
+});
 
 var app = builder.Build();
 
