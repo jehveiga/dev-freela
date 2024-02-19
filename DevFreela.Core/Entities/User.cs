@@ -8,7 +8,7 @@
         public DateTime CreatedAt { get; private set; } = DateTime.Now;
         public bool Active { get; set; } = true;
         public string Password { get; private set; } = password;
-        public string Role { get; private set; } = role;
+        public string Role { get; private set; } = role.ToLower();
 
         public IList<UserSkill> Skills { get; private set; } = new List<UserSkill>();
         public IList<Project> OwnedProjects { get; private set; } = new List<Project>();

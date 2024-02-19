@@ -49,9 +49,9 @@ namespace DevFreela.API.Controllers
         [HttpPost]
         public async Task<IActionResult> PostAsync([FromBody] CreateProjectCommand command)
         {
-            var idProject = await _mediator.Send(command);
+            _ = await _mediator.Send(command);
 
-            return CreatedAtAction(nameof(GetByIdAsync), new { id = idProject }, command);
+            return Ok(command);
         }
 
         // ex: api/projects/2
