@@ -7,6 +7,7 @@ using DevFreela.Application.Commands.UpdateProject;
 using DevFreela.Application.Queries.GetAllProjects;
 using DevFreela.Application.Queries.GetProjectById;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DevFreela.API.Controllers
@@ -25,6 +26,7 @@ namespace DevFreela.API.Controllers
 
         // ex: api/projects?query=net core
         [HttpGet]
+        [Authorize(Roles = "client, freelancer")] // Adicionando somente acesso de usuário autenticado neste método com role indicada
         public async Task<IActionResult> GetAsync([FromQuery] string query)
         {
             var getAllProjectsQuery = new GetAllProjectsQuery(query);
@@ -35,6 +37,7 @@ namespace DevFreela.API.Controllers
 
         // ex: api/projects/3
         [HttpGet("{id:int}")]
+        [Authorize(Roles = "client, freelancer")] // Adicionando somente acesso de usuário autenticado neste método com role indicada
         public async Task<IActionResult> GetByIdAsync([FromRoute] int id)
         {
             var query = new GetProjectByIdQuery(id);
@@ -47,6 +50,7 @@ namespace DevFreela.API.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "client")] // Adicionando somente acesso de usuário autenticado neste método com role indicada
         public async Task<IActionResult> PostAsync([FromBody] CreateProjectCommand command)
         {
             _ = await _mediator.Send(command);
@@ -56,6 +60,7 @@ namespace DevFreela.API.Controllers
 
         // ex: api/projects/2
         [HttpPut("{id:int}")]
+        [Authorize(Roles = "client")] // Adicionando somente acesso de usuário autenticado neste método com role indicada
         public async Task<IActionResult> PutAsync([FromRoute] int id,
                                  [FromBody] UpdateProjectCommand command)
         {
@@ -66,6 +71,7 @@ namespace DevFreela.API.Controllers
 
         // ex: api/projects/3
         [HttpDelete("{id:int}")]
+        [Authorize(Roles = "client")] // Adicionando somente acesso de usuário autenticado neste método com role indicada
         public async Task<IActionResult> DeleteAsync([FromRoute] int id)
         {
             var command = new DeleteProjectCommand(id);
@@ -77,6 +83,7 @@ namespace DevFreela.API.Controllers
 
         // ex: api/projects/2/comments
         [HttpPost("{id:int}/comments")]
+        [Authorize(Roles = "client, freelancer")] // Adicionando somente acesso de usuário autenticado neste método com role indicada
         public async Task<IActionResult> PostCommentAsync([FromRoute] int id,
                                          [FromBody] CreateCommentCommand command)
         {
@@ -87,6 +94,7 @@ namespace DevFreela.API.Controllers
 
         // ex: api/projects/1/start
         [HttpPut("{id:int}/start")]
+        [Authorize(Roles = "client")] // Adicionando somente acesso de usuário autenticado neste método com role indicada
         public async Task<IActionResult> StartAsync([FromRoute] int id)
         {
             var command = new StartProjectCommand(id);
@@ -98,6 +106,7 @@ namespace DevFreela.API.Controllers
 
         // ex: api/projects/1/finish
         [HttpPut("{id:int}/finish")]
+        [Authorize(Roles = "client")] // Adicionando somente acesso de usuário autenticado neste método com role indicada
         public async Task<IActionResult> FinishAsync([FromRoute] int id)
         {
             var command = new FinishProjectCommand(id);
