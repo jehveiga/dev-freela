@@ -1,5 +1,4 @@
 ﻿using DevFreela.Core.Services;
-using Microsoft.Extensions.Configuration;
 using RabbitMQ.Client;
 
 namespace DevFreela.Infrastructure.MessageBus
@@ -7,7 +6,6 @@ namespace DevFreela.Infrastructure.MessageBus
     public class MessageBusService : IMessageBusService
     {
         private readonly ConnectionFactory _factory;
-        private readonly IConfiguration _configuration;
 
         public MessageBusService()
         {

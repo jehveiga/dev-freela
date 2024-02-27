@@ -4,9 +4,8 @@ namespace DevFreela.Application.Commands.FinishProject
 {
     public class FinishProjectCommand : IRequest<bool>
     {
-        public FinishProjectCommand(int id, string creditCardnumber, string cvv, string expiresAt, string fullName, decimal amount)
+        public FinishProjectCommand(string creditCardnumber, string cvv, string expiresAt, string fullName, decimal amount)
         {
-            Id = id;
             CreditCardNumber = creditCardnumber;
             Cvv = cvv;
             ExpiresAt = expiresAt;
@@ -14,7 +13,7 @@ namespace DevFreela.Application.Commands.FinishProject
             Amount = amount;
         }
 
-        public int Id { get; private set; }
+        public int Id { get; set; }
         public string CreditCardNumber { get; private set; }
         public string Cvv { get; private set; }
         public string ExpiresAt { get; private set; }
