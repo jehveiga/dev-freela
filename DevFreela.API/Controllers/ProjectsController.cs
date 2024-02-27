@@ -106,11 +106,9 @@ namespace DevFreela.API.Controllers
 
         // ex: api/projects/1/finish
         [HttpPut("{id:int}/finish")]
-        [Authorize(Roles = "client")] // Adicionando somente acesso de usuário autenticado neste método com role indicada
-        public async Task<IActionResult> FinishAsync([FromRoute] int id)
+        /*[Authorize(Roles = "client")]*/ // Adicionando somente acesso de usuário autenticado neste método com role indicada
+        public async Task<IActionResult> FinishAsync([FromRoute] int id, [FromBody] FinishProjectCommand command)
         {
-            var command = new FinishProjectCommand(id);
-
             await _mediator.Send(command);
 
             return NoContent();

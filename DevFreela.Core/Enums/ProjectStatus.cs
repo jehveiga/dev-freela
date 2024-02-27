@@ -6,7 +6,8 @@
         InProgress,
         Suspended,
         Cancelled,
-        Finished
+        Finished,
+        PaymentPending
     }
 
 

@@ -41,6 +41,13 @@ namespace DevFreela.Core.Entities
             }
         }
 
+        public void SetPaymentPerding()
+        {
+            Status = ProjectStatus.PaymentPending;
+            FinisishedAt = DateTime.Now;
+
+        }
+
         public void Update(string title, string description, decimal? totalCost)
         {
             Title = title;
