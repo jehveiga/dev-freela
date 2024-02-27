@@ -18,20 +18,21 @@ namespace DevFreela.Application.Commands.FinishProject
 
         public async Task<bool> Handle(FinishProjectCommand request, CancellationToken cancellationToken)
         {
+            // Obtem o projeto referente ao id
             var project = await _projectRepository.GetByIdAsync(request.Id);
 
-            project.Finish();
-
+            // Monta o objeto DTO
             var paymentInfoDto = new PaymentInfoDto(request.Id, request.CreditCardNumber, request.Cvv, request.ExpiresAt, request.FullName, request.Amount);
 
-            var result = await _paymentService.ProcessPayment(paymentInfoDto);
+            // Envia os dados para processamento de pagamento
+            _paymentService.ProcessPayment(paymentInfoDto);
 
-            if (!result)
-                project.SetPaymentPerding();
+            // Define o projeto para pagamento pendente
+            project.SetPaymentPerding();
 
             await _projectRepository.SaveChangesAsync();
 
-            return result;
+            return true;
         }
     }
 }

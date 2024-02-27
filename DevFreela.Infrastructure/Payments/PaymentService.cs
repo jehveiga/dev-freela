@@ -1,6 +1,5 @@
 ﻿using DevFreela.Core.DTOs;
 using DevFreela.Core.Services;
-using Microsoft.Extensions.Configuration;
 using System.Text;
 using System.Text.Json;
 
@@ -8,26 +7,22 @@ namespace DevFreela.Infrastructure.Payments
 {
     public class PaymentService : IPaymentService
     {
-        private readonly IHttpClientFactory _httpClientFactory;
-        private readonly string _paymentBaseUrl;
+        private readonly IMessageBusService _messageBusService;
+        private const string QUEUE_NAME = "Payments";
 
-        public PaymentService(IHttpClientFactory httpClientFactory, IConfiguration configuration)
+        public PaymentService(IMessageBusService messageBusService)
         {
-            _httpClientFactory = httpClientFactory;
-            _paymentBaseUrl = configuration.GetSection("Services:Payments").Value ?? string.Empty;
+            _messageBusService = messageBusService;
         }
 
-        public async Task<bool> ProcessPayment(PaymentInfoDto paymentInfoDto)
+        public void ProcessPayment(PaymentInfoDto paymentInfoDto)
         {
-            var url = $"{_paymentBaseUrl}/api/payments";
+            // Convertendo objeto para json
             var paymentInfoJson = JsonSerializer.Serialize(paymentInfoDto);
-            var paymentInfoContent = new StringContent(paymentInfoJson, Encoding.UTF8, "application/json");
+            // Convertendo Json para array de bytes
+            var paymentInfoBytes = Encoding.UTF8.GetBytes(paymentInfoJson);
 
-            var httpClient = _httpClientFactory.CreateClient("Payments");
-
-            var response = await httpClient.PostAsync(url, paymentInfoContent);
-
-            return response.IsSuccessStatusCode;
+            _messageBusService.Publish(QUEUE_NAME, paymentInfoBytes);
         }
     }
 }
