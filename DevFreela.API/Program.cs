@@ -1,18 +1,10 @@
 using DevFreela.API.Filters;
-using DevFreela.Application.Commands.CreateProject;
-using DevFreela.Application.Consumers;
+using DevFreela.Application;
 using DevFreela.Application.Validators;
-using DevFreela.Core.Repositories;
-using DevFreela.Core.Services;
-using DevFreela.Infrastructure.Auth;
-using DevFreela.Infrastructure.MessageBus;
-using DevFreela.Infrastructure.Payments;
-using DevFreela.Infrastructure.Persistence;
-using DevFreela.Infrastructure.Persistence.Repositories;
+using DevFreela.Infrastructure;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
@@ -22,18 +14,11 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 // DI
-var connectionString = builder.Configuration.GetConnectionString("DevFreelaCs");
-builder.Services.AddDbContext<DevFreelaDbContext>(options => options.UseSqlServer(connectionString));
-builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
-builder.Services.AddScoped<ISkillRepository, SkillRepository>();
-builder.Services.AddScoped<IUserRepository, UserRepository>();
+var configuration = builder.Configuration;
 
-// Adicionando serviço do Jwt na aplicação
-builder.Services.AddScoped<IAuthService, AuthService>();
-
-builder.Services.AddScoped<IPaymentService, PaymentService>();
-builder.Services.AddScoped<IMessageBusService, MessageBusService>();
-builder.Services.AddHostedService<PaymentApprovedConsumer>();
+builder.Services
+    .AddInfrastructure(configuration)
+    .AddApplication();
 
 builder.Services.AddHttpClient();
 
@@ -42,10 +27,6 @@ builder.Services.AddControllers(options => options.Filters.Add(typeof(Validation
 
 // Fluent Validation, adicionará todas dependecias de serviço pela classe obtendo o Assembly da classe informada no parametro
 builder.Services.AddFluentValidationAutoValidation().AddValidatorsFromAssemblyContaining<CreateUserCommandValidator>();
-
-// Adicionando o serviço do MediatR no container de serviço do Asp.Net, adicionará todas dependecias de serviço pelo Assembly informado no parametro
-builder.Services.AddMediatR(cfg => { cfg.RegisterServicesFromAssemblies(typeof(CreateProjectCommand).Assembly); });
-
 
 
 builder.Services.AddEndpointsApiExplorer();

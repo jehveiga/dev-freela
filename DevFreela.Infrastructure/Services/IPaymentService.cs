@@ -1,4 +1,4 @@
-﻿using DevFreela.Core.DTOs;
+﻿using DevFreela.Infrastructure.Payments;
 
 namespace DevFreela.Core.Services
 {

@@ -1,5 +1,4 @@
-﻿using DevFreela.Core.DTOs;
-using DevFreela.Core.Services;
+﻿using DevFreela.Core.Services;
 using System.Text;
 using System.Text.Json;
 
@@ -24,5 +23,25 @@ namespace DevFreela.Infrastructure.Payments
 
             _messageBusService.Publish(QUEUE_NAME, paymentInfoBytes);
         }
+    }
+
+    public class PaymentInfoDto
+    {
+        public PaymentInfoDto(int idProject, string creditCardNumber, string cvv, string expiresAt, string fullName, decimal amount)
+        {
+            IdProject = idProject;
+            CreditCardNumber = creditCardNumber;
+            Cvv = cvv;
+            ExpiresAt = expiresAt;
+            FullName = fullName;
+            Amount = amount;
+        }
+
+        public int IdProject { get; set; }
+        public string CreditCardNumber { get; set; }
+        public string Cvv { get; set; }
+        public string ExpiresAt { get; set; }
+        public string FullName { get; set; }
+        public decimal Amount { get; set; }
     }
 }

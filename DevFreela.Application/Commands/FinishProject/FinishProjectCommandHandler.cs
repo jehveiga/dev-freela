@@ -1,5 +1,5 @@
-﻿using DevFreela.Core.DTOs;
-using DevFreela.Core.Services;
+﻿using DevFreela.Core.Services;
+using DevFreela.Infrastructure.Payments;
 using DevFreela.Infrastructure.Persistence.Repositories;
 using MediatR;
 
