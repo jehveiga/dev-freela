@@ -1,5 +1,6 @@
 using DevFreela.API.Filters;
 using DevFreela.Application.Commands.CreateProject;
+using DevFreela.Application.Consumers;
 using DevFreela.Application.Validators;
 using DevFreela.Core.Repositories;
 using DevFreela.Core.Services;
@@ -32,6 +33,7 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 
 builder.Services.AddScoped<IPaymentService, PaymentService>();
 builder.Services.AddScoped<IMessageBusService, MessageBusService>();
+builder.Services.AddHostedService<PaymentApprovedConsumer>();
 
 builder.Services.AddHttpClient();
 
