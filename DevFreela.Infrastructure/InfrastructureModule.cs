@@ -48,6 +48,7 @@ namespace DevFreela.Infrastructure
 
         private static IServiceCollection AddAuthentication(this IServiceCollection services, IConfiguration configuration)
         {
+            // Adicionando o serviço de autenticação no container de serviços com as configurações para geração do token e validação
             services
                 .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>

@@ -1,4 +1,4 @@
-﻿using DevFreela.Core.DTOs;
+﻿using DevFreela.Core.Entities;
 using DevFreela.Core.Repositories;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,12 +13,6 @@ namespace DevFreela.Infrastructure.Persistence.Repositories
             _dbContext = dbContext;
         }
 
-        public async Task<List<SkillDto>> GetAllAsync() => await _dbContext.UserSkills
-                                                                            .Include(x => x.Skill)
-                                                                            .Select(userSkill => new SkillDto
-                                                                            {
-                                                                                Id = userSkill.Id,
-                                                                                Description = userSkill.Skill.Description
-                                                                            }).ToListAsync();
+        public async Task<List<Skill>> GetAllAsync() => await _dbContext.Skills.ToListAsync();
     }
 }
