@@ -18,8 +18,9 @@ namespace DevFreela.UnitTest.Application.Queries
                 new("Nome do Teste 3", "Descricao de Teste 3", 1, 2, 30000),
             };
 
+            string queryMock = string.Empty;
             var projectRepositoryMock = Substitute.For<IProjectRepository>();
-            projectRepositoryMock.GetAllAsync().Returns(projects);
+            projectRepositoryMock.GetAllAsync(queryMock).Returns(projects);
 
             var getAllProjectsQuery = new GetAllProjectsQuery("");
             var getAllProjectsQueryHandler = new GetAllProjectsQueryHandler(projectRepositoryMock);
@@ -33,7 +34,7 @@ namespace DevFreela.UnitTest.Application.Queries
             Assert.NotEmpty(projectViewModelList);
             Assert.Equal(projects.Count, projectViewModelList.Count);
 
-            _ = projectRepositoryMock.Received().GetAllAsync();
+            _ = projectRepositoryMock.Received().GetAllAsync(queryMock);
 
         }
     }
