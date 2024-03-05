@@ -27,9 +27,8 @@ namespace DevFreela.API.Controllers
         // ex: api/projects?query=net core
         [HttpGet]
         [Authorize(Roles = "client, freelancer")] // Adicionando somente acesso de usuário autenticado neste método com role indicada
-        public async Task<IActionResult> GetAsync([FromQuery] string? query)
+        public async Task<IActionResult> GetAsync([FromQuery] GetAllProjectsQuery getAllProjectsQuery)
         {
-            var getAllProjectsQuery = new GetAllProjectsQuery(query);
             var projects = await _mediator.Send(getAllProjectsQuery);
 
             return Ok(projects);

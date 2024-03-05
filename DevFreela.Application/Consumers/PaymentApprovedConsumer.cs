@@ -1,5 +1,5 @@
 ﻿using DevFreela.Core.IntegrationEvents;
-using DevFreela.Infrastructure.Persistence.Repositories;
+using DevFreela.Core.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using RabbitMQ.Client;

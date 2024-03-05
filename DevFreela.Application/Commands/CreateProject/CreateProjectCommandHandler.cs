@@ -1,5 +1,5 @@
 ﻿using DevFreela.Core.Entities;
-using DevFreela.Infrastructure.Persistence.Repositories;
+using DevFreela.Core.Repositories;
 using MediatR;
 
 namespace DevFreela.Application.Commands.CreateProject

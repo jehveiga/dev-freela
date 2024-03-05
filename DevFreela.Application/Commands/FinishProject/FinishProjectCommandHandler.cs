@@ -1,6 +1,6 @@
-﻿using DevFreela.Core.Services;
+﻿using DevFreela.Core.Repositories;
+using DevFreela.Core.Services;
 using DevFreela.Infrastructure.Payments;
-using DevFreela.Infrastructure.Persistence.Repositories;
 using MediatR;
 
 namespace DevFreela.Application.Commands.FinishProject

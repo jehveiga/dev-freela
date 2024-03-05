@@ -1,4 +1,4 @@
-﻿using DevFreela.Infrastructure.Persistence.Repositories;
+﻿using DevFreela.Core.Repositories;
 using MediatR;
 
 namespace DevFreela.Application.Commands.DeleteProject
