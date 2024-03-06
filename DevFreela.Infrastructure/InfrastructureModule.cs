@@ -22,6 +22,7 @@ namespace DevFreela.Infrastructure
             services
                 .AddPersistence(configuration)
                 .AddRepositories()
+                .AddUnitOfWork()
                 .AddAuthentication(configuration)
                 .AddMessageBus()
                 .AddServices();
@@ -84,6 +85,13 @@ namespace DevFreela.Infrastructure
         private static IServiceCollection AddServices(this IServiceCollection services)
         {
             services.AddScoped<IPaymentService, PaymentService>();
+
+            return services;
+        }
+
+        private static IServiceCollection AddUnitOfWork(this IServiceCollection services)
+        {
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             return services;
         }
