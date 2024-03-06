@@ -1,6 +1,6 @@
 ﻿using DevFreela.Application.Commands.CreateProject;
 using DevFreela.Core.Entities;
-using DevFreela.Infrastructure.Persistence.Repositories;
+using DevFreela.Core.Repositories;
 using NSubstitute;
 
 namespace DevFreela.UnitTest.Application.Commands

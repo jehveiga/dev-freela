@@ -16,8 +16,6 @@ namespace DevFreela.Infrastructure.Persistence
         {
             // Adicionando todas as configurações da criação do banco registradas, através da herança da interface IEntityTypeConfiguration<T>
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
-
-
         }
     }
 }

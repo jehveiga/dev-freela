@@ -11,6 +11,7 @@ namespace DevFreela.Infrastructure.Auth
     public class AuthService : IAuthService
     {
         private readonly IConfiguration _configuration;
+
         public AuthService(IConfiguration configuration)
         {
             _configuration = configuration;
@@ -19,7 +20,6 @@ namespace DevFreela.Infrastructure.Auth
         // Método que será usado para Criptografar a senha
         public string ComputeSha256Hash(string password)
         {
-
             using (SHA256 sha256Hash = SHA256.Create())
             {
                 // ComputeHash - retorna byte array
@@ -34,7 +34,6 @@ namespace DevFreela.Infrastructure.Auth
 
                 return builder.ToString();
             }
-
         }
 
         public string GenerateJwtToken(string email, string role)
@@ -43,26 +42,31 @@ namespace DevFreela.Infrastructure.Auth
             var issuer = _configuration["Jwt:Issuer"] ?? string.Empty;
             // Publico do serviço do token
             var audience = _configuration["Jwt:Audience"] ?? string.Empty;
-            // A Chave do serviço do token 
+            // A Chave do serviço do token
             var key = _configuration["Jwt:Key"] ?? string.Empty;
 
             #region Chave/Criptografia
+
             // Obtendo a chave e convertendo em formato simétrico
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
             // Obtendo a assinatura da chave simetrica criada no método acima, adicionando a criptografia 'HmacSha256',
             // Criando a credencial de assinatura
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-            #endregion
+
+            #endregion Chave/Criptografia
 
             #region Claims de usuário
+
             var claims = new List<Claim>
             {
                 new("userName", email),
                 new(ClaimTypes.Role, role)
             };
-            #endregion
+
+            #endregion Claims de usuário
 
             #region Configuração/Geração do Token
+
             var token = new JwtSecurityToken(
                 issuer: issuer,
                 audience: audience,
@@ -73,7 +77,7 @@ namespace DevFreela.Infrastructure.Auth
             var tokenHandler = new JwtSecurityTokenHandler();
             var stringToken = tokenHandler.WriteToken(token);
 
-            #endregion
+            #endregion Configuração/Geração do Token
 
             return stringToken;
         }

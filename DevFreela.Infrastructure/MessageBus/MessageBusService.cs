@@ -14,6 +14,7 @@ namespace DevFreela.Infrastructure.MessageBus
                 HostName = "localhost"
             };
         }
+
         public void Publish(string queue, byte[] message)
         {
             // Criando a conexão com RabbitMQ
