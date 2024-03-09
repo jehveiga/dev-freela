@@ -26,6 +26,7 @@ namespace DevFreela.Infrastructure.Persistence.Repositories
 
         public async Task<int> CompleteAsync() => await _dbContext.SaveChangesAsync();
 
+        #region Padrão de transações
         public async Task BeginTransactionAsync()
         {
             _transaction = await _dbContext.Database.BeginTransactionAsync();
@@ -43,6 +44,7 @@ namespace DevFreela.Infrastructure.Persistence.Repositories
                 throw ex;
             }
         }
+        #endregion
 
         #region Implementação do Dispose
         public void Dispose()
