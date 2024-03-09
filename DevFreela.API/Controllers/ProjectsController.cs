@@ -26,7 +26,7 @@ namespace DevFreela.API.Controllers
 
         // ex: api/projects?query=net core
         [HttpGet]
-        //[Authorize(Roles = "client, freelancer")] // Adicionando somente acesso de usuário autenticado neste método com role indicada
+        [Authorize(Roles = "client, freelancer")] // Adicionando somente acesso de usuário autenticado neste método com role indicada
         public async Task<IActionResult> GetAsync([FromQuery] GetAllProjectsQuery getAllProjectsQuery)
         {
             var projects = await _mediator.Send(getAllProjectsQuery);
@@ -36,7 +36,7 @@ namespace DevFreela.API.Controllers
 
         // ex: api/projects/3
         [HttpGet("{id:int}")]
-        //[Authorize(Roles = "client, freelancer")] // Adicionando somente acesso de usuário autenticado neste método com role indicada
+        [Authorize(Roles = "client, freelancer")] // Adicionando somente acesso de usuário autenticado neste método com role indicada
         public async Task<IActionResult> GetByIdAsync([FromRoute] int id)
         {
             var query = new GetProjectByIdQuery(id);
@@ -49,7 +49,7 @@ namespace DevFreela.API.Controllers
         }
 
         [HttpPost]
-        //[Authorize(Roles = "client")] // Adicionando somente acesso de usuário autenticado neste método com role indicada
+        [Authorize(Roles = "client")] // Adicionando somente acesso de usuário autenticado neste método com role indicada
         public async Task<IActionResult> PostAsync([FromBody] CreateProjectCommand command)
         {
             _ = await _mediator.Send(command);

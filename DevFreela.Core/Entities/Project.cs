@@ -43,8 +43,11 @@ namespace DevFreela.Core.Entities
 
         public void SetPaymentPerding()
         {
-            Status = ProjectStatus.PaymentPending;
-            FinisishedAt = DateTime.Now;
+            if (Status == ProjectStatus.InProgress)
+            {
+                Status = ProjectStatus.PaymentPending;
+                FinisishedAt = DateTime.Now;
+            }
 
         }
 
