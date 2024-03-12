@@ -15,7 +15,7 @@ Adicionado Camada de Teste Unitário utilizando XUnit com a biblioteca NSubstitu
 Implementado serviço de mensageria utilizando RabbitMQ simulando pagamento do serviço da conclusão do projeto pelo desenvolvedor utilizando microserviço para simular serviço de pagamento através de mensageria.
 Aplicado Filtragem de dados para consultas de projetos.
 Implementado paginação de forma genérica focando o reuso, para facilitar e otimizar o consumo no front-end para apresentação ao cliente.
-Uitlizado o padrão Unit Of Work para focalizar as consultas focando no reuzo e organização do código e utlizando nas mesmas classes Transações se algo ocorrer no banco com uma transação mal realizada será feito o Roll Back da transação.
+Utilizado o padrão Unit Of Work para focalizar as consultas focando no reuso e organização do código e utlizando nas mesmas classes transações se algo ocorrer no banco com uma transação mal realizada será feito o Roll Back da transação.
 
 # Apresentação Web API - Dev Freela
 
