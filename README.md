@@ -35,9 +35,6 @@ Uitlizado o padrão Unit Of Work para focalizar as consultas focando no reuzo e 
 ![Apresentacao Criando Projeto](https://github.com/jehveiga/dev-freela/blob/main/assets/post_project.gif)
 
 ## Apresentação Editar Projeto - demonstração de edição de projeto
-![Apresentacao Editando Projeto](https://github.com/jehveiga/dev-freela/blob/main/assets/post_project.gif)
-
-## Apresentação Editar Projeto - demonstração de edição de projeto
 ![Apresentacao Editando Projeto](https://github.com/jehveiga/dev-freela/blob/main/assets/put_project.gif)
 
 ## Apresentação Deletar Projeto - demonstração deletando projeto (No caso definindo status do projeto para cancelado)
