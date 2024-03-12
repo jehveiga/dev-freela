@@ -19,8 +19,32 @@ Uitlizado o padrão Unit Of Work para focalizar as consultas focando no reuzo e 
 
 # Apresentação Web API - Dev Freela
 
-## Visualizando os End-Points - demonstração dos end-points do projeto Web API
+## Visualizando os End-Points - demonstração dos end-points do projeto Web API com Swagger
+![Apresentacao Projeto com Swagger](https://github.com/jehveiga/dev-freela/blob/main/assets/apresentacao_swagger.gif)
 
+## Apresentação Gerando Token - demonstração de gerar token para atenticação e autorização da aplicação
+![Apresentacao Gerando Token](https://github.com/jehveiga/dev-freela/blob/main/assets/gerar_token.gif)
+
+## Apresentação Obter e Criar Usuário - demonstração de criação e obter usuário
+![Apresentacao Criando e Obtendo usuário](https://github.com/jehveiga/dev-freela/blob/main/assets/obter_criar_usuario.gif)
+
+## Apresentação Obter Projetos - demonstração obtendo projetos filtrando por título ou descrição e paginação (opcional ou todos se não preencher)
+![Apresentacao Obtendo Projetos](https://github.com/jehveiga/dev-freela/blob/main/assets/obter_project.gif)
+
+## Apresentação Criar Projeto - demonstração de criação de projeto
+![Apresentacao Criando Projeto](https://github.com/jehveiga/dev-freela/blob/main/assets/post_project.gif)
+
+## Apresentação Editar Projeto - demonstração de edição de projeto
+![Apresentacao Editando Projeto](https://github.com/jehveiga/dev-freela/blob/main/assets/post_project.gif)
+
+## Apresentação Editar Projeto - demonstração de edição de projeto
+![Apresentacao Editando Projeto](https://github.com/jehveiga/dev-freela/blob/main/assets/put_project.gif)
+
+## Apresentação Deletar Projeto - demonstração deletando projeto (No caso definindo status do projeto para cancelado)
+![Apresentacao Deletando Projeto](https://github.com/jehveiga/dev-freela/blob/main/assets/delete_project.gif)
+
+## Apresentação Serviço de Mensageria - demonstração de start e finish de projeto, simulando aprovação de pagamento com RabbitMQ na finalização do projeto
+![Apresentacao Mensageria com RabbitMQ](https://github.com/jehveiga/dev-freela/blob/main/assets/rabbitMQ_finish_project.gif)
 
 ## Back end
 
