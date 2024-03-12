@@ -22,7 +22,7 @@ Uitlizado o padrão Unit Of Work para focalizar as consultas focando no reuzo e 
 ## Visualizando os End-Points - demonstração dos end-points do projeto Web API com Swagger
 ![Apresentacao Projeto com Swagger](https://github.com/jehveiga/dev-freela/blob/main/assets/apresentacao_swagger.gif)
 
-## Apresentação Gerando Token - demonstração de gerar token para atenticação e autorização da aplicação
+## Apresentação Gerando Token - demonstração de gerar token para autenticação e autorização da aplicação
 ![Apresentacao Gerando Token](https://github.com/jehveiga/dev-freela/blob/main/assets/gerar_token.gif)
 
 ## Apresentação Obter e Criar Usuário - demonstração de criação e obter usuário
