@@ -52,6 +52,7 @@ Utilizado o padrão Unit Of Work para focalizar as consultas focando no reuso e 
 - JWT
 - RabbitMQ
 - CQRS
+- Mediator
 - Fluent Validation
 - Swagger
 - xUnit
